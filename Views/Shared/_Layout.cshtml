@@ -1,0 +1,182 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+
+        #social-wrapper {
+            text-align: center;
+        }
+
+        /*Social Media Icons*/
+        .social-wrapper {
+            text-align: center;
+        }
+
+            .social-wrapper ul li {
+                display: inline;
+                margin: 0 5px;
+            }
+
+        .twitter-icon,
+        .facebook-icon,
+        .instagram-icon,
+        .linkedin-icon,
+        .googleplus-icon,
+        .youtube-icon,
+        .foursquare-icon {
+            margin-top: .625em;
+            width: 40px;
+            height: 40px;
+            opacity: .6;
+            filter: alpha(opacity=60); /* For IE8 and earlier */
+            border-radius: 25px;
+        }
+
+            .twitter-icon:hover,
+            .facebook-icon:hover,
+            .instagram-icon:hover,
+            .linkedin-icon:hover,
+            .googleplus-icon:hover,
+            .youtube-icon:hover,
+            .foursquare-icon:hover {
+                opacity: 1.0;
+                filter: alpha(opacity=100); /* For IE8 and earlier */
+            }
+
+    </style>
+
+</head>
+<body onload="f()" style="background-color: #F3F3F3;">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-info border-bottom box-shadow mb-3" >
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BookStore</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse w-50">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item Buyer bar" id="purchases">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Buyer" asp-action="Purchases">Purchases</a>
+                        </li>
+                        <li class="nav-item Seller bar" id="books">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Seller" asp-action="MyBooks">My Books</a>
+                        </li>
+                        <li class="nav-item Seller bar" id="post">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Seller" asp-action="PostBook">Post Books</a>
+                        </li>
+                        <li class="nav-item Admin bar" id="users">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Users">Users</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item Guest bar">
+                            <a id="login" class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Log In</a>
+                        </li>
+                        <li class="nav-item Guest bar">
+                            <a id="register" class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                        </li>
+                        
+                        <li class="nav-item Buyer Seller Admin bar">
+                              <a id="logout" class="nav-link text-dark " asp-area="" asp-controller="User" asp-action="Me">My Profile</a>
+                        </li>
+                        <li class="nav-item Buyer Seller Admin bar">
+                            <a id="logout" class="nav-link text-dark " asp-area="" asp-controller="User" asp-action="LogOut">Log out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+
+        
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer  navbar-dark bg-info">
+        <div class="container">
+            &copy; 2020 - Book Store - Orazbek Mukhametali CSSE-1703K
+        </div>
+        <div class="social-wrapper">
+            <ul>
+                <li>
+                    <a href="https://www.instagram.com/bbh.oma/" target="_blank">
+                        <img src="https://www.mchenryvillage.com/images/instagram-icon.png" alt="Instagram Logo" class="instagram-icon">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://vk.com/idorazbekmukhametali" target="_blank">
+                        <img src="http://www.iconarchive.com/download/i54037/danleech/simple/facebook.ico" alt="Facebook Logo" class="facebook-icon">
+                    </a>
+                </li>
+                
+            
+            </ul>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function getCookie(name) {
+
+            var cookieArr = document.cookie.split(";");
+    
+
+            for(var i = 0; i < cookieArr.length; i++) {
+                var cookiePair = cookieArr[i].split("=");
+        
+
+                if(name == cookiePair[0].trim()) {
+
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+   
+            return null;
+        }
+        function f() {
+            let role = getCookie("Role");
+            var all = document.getElementsByClassName("bar");
+            for (var i = 0; i < all.length; i++) {
+                all[i].style.display = "none";
+            }
+            var show;
+            if (role == null) {
+                show = document.getElementsByClassName("Guest");
+            }
+            else {
+                show = document.getElementsByClassName(role);
+            }
+            for (var i = 0; i < show.length; i++) {
+                show[i].style.display = "block";
+            }
+        }
+
+       function add() {
+        let x = getCookie("Role");
+        alert(x);
+        let a = document.getElementById("add");
+        if (x != "Buyer" || x == null) {
+            a.style.display = "none";
+        }
+        else {
+            a.style.display = "block";
+        }
+    }
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
