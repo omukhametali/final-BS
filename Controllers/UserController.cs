@@ -169,8 +169,8 @@ namespace final_BS.Controllers
             user.Name = form.Name;
             user.Age = form.Age;
             user.Email = form.Email;
-            //user.Password = Crypto.HashPassword(form.Password);
-            //user.PasswordConfirm = Crypto.HashPassword(form.Password);
+            user.Password = Crypto.HashPassword(form.Password);
+            user.PasswordConfirm = Crypto.HashPassword(form.Password);
             db.SaveChanges();
             return RedirectToAction("Profile", new { Id = user.Id });
         }
